@@ -1,15 +1,16 @@
 import pytest
 from src.extractors.image_text_extractor import ImageTextExtractor
 
+
 class TestImageTextExtractor:
-    @pytest.mark.parametrize("image_path,expected_keywords", [
-        ("files/drivers_license/drivers_license_1.jpg",
-         ["driver", "license"]),
-        ("files/drivers_license/drivers_licence_2.jpg",
-         ["driving", "licence"]),
-        ("files/drivers_license/drivers_license_3.jpg",
-         ["driver", "license"]),
-    ])
+    @pytest.mark.parametrize(
+        "image_path,expected_keywords",
+        [
+            ("files/drivers_license/drivers_license_1.jpg", ["driver", "license"]),
+            ("files/drivers_license/drivers_licence_2.jpg", ["driving", "licence"]),
+            ("files/drivers_license/drivers_license_3.jpg", ["driver", "license"]),
+        ],
+    )
     def test_extract(self, image_path, expected_keywords):
         extractor = ImageTextExtractor(image_path)
         extractor.extract()

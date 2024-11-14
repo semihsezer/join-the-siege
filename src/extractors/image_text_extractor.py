@@ -3,7 +3,8 @@ from src.extractors.base_text_extractor import BaseTextExtractor
 
 class ImageTextExtractor(BaseTextExtractor):
     """Extracts text data from images."""
-    SUPPORTED_FILE_TYPES = ["png", "jpg", "jpeg"]
+
+    SUPPORTED_FILE_TYPES = {"png", "jpg", "jpeg"}
 
     def __init__(self, file_path: str):
         self.file_path = file_path
@@ -11,16 +12,8 @@ class ImageTextExtractor(BaseTextExtractor):
         self.cleaned_text: list[str] = None
 
         # OCR Engine Mode and Page Segmentation Mode
-        self.ocr_config = r'--oem 3 --psm 12'
+        self.ocr_config = r"--oem 3 --psm 12"
         self.validate()
-
-    @property
-    def file_type(self):
-        return self.file_path.split(".")[-1]
-
-    @property
-    def is_supported_type(self):
-        return self.file_type in self.SUPPORTED_FILE_TYPES
 
     @property
     def supported_file_types(self):
@@ -30,10 +23,7 @@ class ImageTextExtractor(BaseTextExtractor):
         if not self.raw_text:
             raise ValueError("No text was extracted. Run extract method first.")
         self.cleaned_text = [
-            line.split(" ")
-            for line in
-            self.raw_text.split("\n")
-            if line
+            line.split(" ") for line in self.raw_text.split("\n") if line
         ]
         return self.cleaned_text
 
@@ -54,6 +44,8 @@ class ImageTextExtractor(BaseTextExtractor):
         self.raw_text = pytesseract.image_to_string(thresh, config=self.ocr_config)
 
         if not self.raw_text and raise_on_empty:
-            raise ValueError("No text was extracted. Either there is no text in the image or extraction failed.")
+            raise ValueError(
+                "No text was extracted. Either there is no text in the image or extraction failed."
+            )
 
         return self.raw_text

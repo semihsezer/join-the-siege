@@ -4,6 +4,7 @@ from pathlib import Path
 
 class BaseTextExtractor(abc.ABC):
     """Abstract base class for text extractors."""
+
     def __init__(self, file_path: str):
         """
         :param file_path: Path to the file to extract text from.
@@ -12,13 +13,17 @@ class BaseTextExtractor(abc.ABC):
         self.raw_text: str = None
         self.cleaned_text: list[str] = None
 
+    @property
+    def file_type(self):
+        return self.file_path.split(".")[-1]
+
     def validate(self):
-        file_type = self.file_path.split(".")[-1]
-        if file_type not in self.supported_file_types:
-            raise ValueError(f"Unsupported image file type: {self.file_type}. "
-                             "Has to be one of: {self.SUPPORTED_FILE_TYPES}. "
-                             "Image Path: {self.file_path}"
-                             )
+        if self.file_type not in self.supported_file_types:
+            raise ValueError(
+                f"Unsupported file type: {self.file_type}. "
+                "Has to be one of: {self.SUPPORTED_FILE_TYPES}. "
+                "File path: {self.file_path}"
+            )
         if not Path(self.file_path).exists():
             raise FileNotFoundError(f"File not found: {self.file_path}")
 
