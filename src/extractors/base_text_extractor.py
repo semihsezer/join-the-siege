@@ -27,10 +27,20 @@ class BaseTextExtractor(abc.ABC):
         if not Path(self.file_path).exists():
             raise FileNotFoundError(f"File not found: {self.file_path}")
 
+    def validate_extracted(self):
+        """Validates extrated text.
+
+        :raises ValueError if no text was extracted.
+        """
+        if not self.raw_text:
+            raise ValueError(
+                "No text was extracted. Either there is no text or extraction failed."
+            )
+
     @property
     @abc.abstractmethod
     def supported_file_types(self) -> set[str]:
-        """Returns a set of supported file type extensions ie. .pdf, .docx, .jpg."""
+        """Returns a set of supported file type extensions ie. pdf, docx, jpg."""
         pass
 
     @abc.abstractmethod

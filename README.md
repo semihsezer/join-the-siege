@@ -42,6 +42,8 @@ We encourage you to be creative! Feel free to use any libraries, tools, services
 ## Pre-Requisites
 1. Python 3.12
 2. Install `pre-commit`
+3. Install `tesseract`: `brew install tesseract` for extracting text from images
+4. Install `poppler`: `brew install poppler` for converting PDFs to images
 
 ## Getting Started
 1. Clone the repository:

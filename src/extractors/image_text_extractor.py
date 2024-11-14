@@ -42,10 +42,6 @@ class ImageTextExtractor(BaseTextExtractor):
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
         self.raw_text = pytesseract.image_to_string(thresh, config=self.ocr_config)
-
-        if not self.raw_text and raise_on_empty:
-            raise ValueError(
-                "No text was extracted. Either there is no text in the image or extraction failed."
-            )
+        self.validate_extracted()
 
         return self.raw_text
