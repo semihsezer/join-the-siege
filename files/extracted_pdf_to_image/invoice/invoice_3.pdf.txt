@@ -1,0 +1,121 @@
+Business Name
+
+Invoice
+
+Street Address Line O1
+
+Street Address Line O02
+
++1 (999)-999-9999
+
+Your Company
+
+Logo
+
+Email Address
+
+Website
+
+INVOICE DETAILS:
+
+BILL TO:
+
+Invoice #
+
+0000
+
+CUSTOMER NAME
+
+Date of Issue
+
+MM/DD/YYYY
+
+Street Address Line O1
+
+Due Date
+
+MM/DD/YYYY
+
+Street Address Line 02
+
+ITEM/SERVICE
+
+DESCRIPTION
+
+QTY/HRS
+
+RATE
+
+AMOUNT
+
+Placeholder
+
+Text
+
+O00
+
+O00
+
+OOO
+
+Placeholder
+
+Text
+
+O00
+
+O00
+
+OOO
+
+Placeholder
+
+Text
+
+O00
+
+O00
+
+OOO
+
+Placeholder
+
+Text
+
+O00
+
+O00
+
+OOO
+
+TERMS
+
+Subtotal
+
+£00.00
+
+Text Here
+
+Discount
+
+-£00.00
+
+TaxRate
+
+5%
+
+£00.00
+
+VAT
+
+TOTAL
+
+£00.00
+
+CONDITIONS/INSTRUCTIONS
+
+Text Here
+
+FE, FreshBooks
+
+

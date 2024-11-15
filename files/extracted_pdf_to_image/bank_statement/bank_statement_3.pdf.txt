@@ -1,0 +1,160 @@
+Bank 3 of Testing
+
+Customer Support: 1-800-555-1234
+
+www.fakebankdomain.com
+
+Account Holder: John Doe 3
+
+Account Number: XXXX-XXXX-XXXX-6783
+
+Statement Period: 2023-03
+
+Date
+
+Description
+
+Debit ($)
+
+Credit ($)
+
+06/03/2023
+
+Direct Deposit
+
+309.02
+
+08/03/2023
+
+Wire Transfer
+
+320.16
+
+24/03/2023
+
+Debit Card Purchase
+
+243.04
+
+11/03/2023
+
+Direct Deposit
+
+20.34
+
+19/03/2023
+
+POS Purchase
+
+234.84
+
+02/03/2023
+
+ACH Payment
+
+668.44
+
+04/03/2023
+
+Bank Fee
+
+225.44
+
+21/03/2023
+
+Wire Transfer
+
+666.55
+
+24/03/2023
+
+ATM Withdrawal
+
+323.07
+
+09/03/2023
+
+628.55
+
+Direct Deposit
+
+09/03/2023
+
+Check Deposit
+
+278.43
+
+17/03/2023
+
+Check Deposit
+
+26.93
+
+04/03/2023
+
+POS Purchase
+
+264.56
+
+01/03/2023
+
+Loan Repayment
+
+253.02
+
+05/03/2023
+
+542.94
+
+Loan Repayment
+
+01/03/2023
+
+POS Purchase
+
+323.44
+
+25/03/2023
+
+ACH Payment
+
+60.33
+
+Bank 3 - Confidential Statement | Page 1
+
+
+Bank 3 of Testing
+
+Customer Support: 1-800-555-1234
+
+www.fakebankdomain.com
+
+15/03/2023
+
+Debit Card Purchase
+
+557.94
+
+10/03/2023
+
+ATM Withdrawal
+
+503.97
+
+21/03/2023
+
+ATM Withdrawal
+
+439.14
+
+08/03/2023
+
+605.61
+
+Loan Repayment
+
+End of Statement
+
+Bank 3 - Confidential Statement | Page 2
+
+

@@ -1,0 +1,63 @@
+i e
+e
+ils:
+e #                 
+a e                  
+:
+n i
+o s, and Instructions
+S R ICE
+S
+m n s 
+e 30 days from the invoice issues 
+. a  f
+s of 1.5% apply after 30 days.
+DESCRIPTION
+qty/hrs
+oice
+Subtotal 
+Discount 
+Tax Rate 
+CONDITIONS/INSTRUCTIONS
+Business Name
+Street Address Line 01
+Street Address Line 02
++1 (999)-999-9999
+Email Address
+Website
+0000
+MM/DD/YYYY
+MM/DD/YYYY
+CUSTOMER NAME
+Street Address Line 01
+Street Address Line 02
+000
+000
+000
+000
+000
+000
+Placeholder
+Placeholder
+£00.00
+£00.00
+Placeholder
+000
+000
+000
+Placeholder
+000
+000
+000
+Text
+Text
+Text
+Text
+Text Here
+-£00.00
+5%
+£00.00
+VAT
+Text Here
+
+
