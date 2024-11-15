@@ -46,4 +46,6 @@ def test_success(client, mocker):
         "/classify_file", data=data, content_type="multipart/form-data"
     )
     assert response.status_code == 200
-    assert response.get_json() == {"file_class": "test_class"}
+    res = response.get_json()
+    assert "file_class" in res
+    assert res["file_class"] == "test_class"

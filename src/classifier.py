@@ -1,3 +1,4 @@
+from datetime import time
 from enum import StrEnum
 from tempfile import NamedTemporaryFile
 from werkzeug.datastructures import FileStorage
@@ -10,6 +11,11 @@ import logging
 
 logging.basicConfig(level=logging.INFO)
 
+class ClassificationCategory(StrEnum):
+    BANK_STATEMENT = "bank_statement"
+    INVOICE = "invoice"
+    DRIVERS_LICENSE = "drivers_license"
+    UNKNOWN = "unknown"
 
 class ClassifierType(StrEnum):
     FILENAME = "filename_classifier"
@@ -23,14 +29,16 @@ def classify_file(file: FileStorage, classifier=ClassifierType.CONTENT,
 
     if classifier == ClassifierType.FILENAME:
         classifier = FileNameClassifier(file.filename)
+        classification = classifier.classify()
     else:
         temp_file = NamedTemporaryFile(delete=False, suffix=file.filename)
         temp_file.write(file.read())
         temp_file.flush()
 
         extractor = get_extractor(temp_file.name, convert_pdf_to_image=convert_pdf_to_image)
-        text = extractor.extract(file)
-        classifier = FileContentClassifier(text)
+        text = extractor.extract()
+        categories = {category for category in ClassificationCategory}
+        classifier = FileContentClassifier()
+        classification = classifier.classify(text, categories)
 
-    classification = classifier.classify()
     return classification

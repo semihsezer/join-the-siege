@@ -1,3 +1,4 @@
+from datetime import datetime, time
 from flask import Flask, request, jsonify
 
 from src.classifier import classify_file, ClassifierType
@@ -10,7 +11,6 @@ ALLOWED_EXTENSIONS = SUPPORTED_FILE_TYPES
 
 def allowed_file(filename):
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
-
 
 @app.route("/classify_file", methods=["POST"])
 def classify_file_route():
@@ -32,8 +32,11 @@ def classify_file_route():
                          f"Has to be one of: {ClassifierType}")
 
     try:
+        start_time = datetime.now()
         classification = classify_file(file, classifier, convert_pdf_to_image)
-        return jsonify({"file_class": classification}), 200
+        duration = (datetime.now() - start_time).seconds
+        return jsonify({"file_class": classification,
+                        "duration_seconds": duration}), 200
     except ValueError as e:
         return jsonify({"error": str(e)}), 400
 
