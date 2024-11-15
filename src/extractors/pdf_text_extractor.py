@@ -1,34 +1,28 @@
 from enum import StrEnum
 from tempfile import NamedTemporaryFile
 from src.extractors.base_text_extractor import BaseTextExtractor
+from src.extractors.file_types import FileType
+import logging
 
-class PDFModule(StrEnum):
-    PDF2IMAGE = "pdf2image"
-    PYMUPDF = "pymupdf"
+
+logging.basicConfig(level=logging.INFO)
 
 
 class PDFTextExtractor(BaseTextExtractor):
     """Extracts text data from PDF files."""
-    SUPPORTED_FILE_TYPES = {"pdf"}
+    SUPPORTED_FILE_TYPES = {FileType.PDF}
 
-    def __init__(self,
-                 file_path: str,
-                 module: PDFModule = PDFModule.PYMUPDF):
-        super().__init__(file_path)
-        self.validate()
-        self.module = module
-
-    @property
-    def supported_file_types(self):
-        return self.SUPPORTED_FILE_TYPES
-
-    def clean(self) -> list[str]:
-        if not self.raw_text:
-            raise ValueError("No text was extracted. Run extract method first.")
-        self.cleaned_text = [
-            line.split(" ") for line in self.raw_text.split("\n") if line
-        ]
-        return self.cleaned_text
+    def __init__(self, file_path:str, convert_pdf_to_image: bool = False):
+        """
+        :param file_path: :str Path to the PDF file to extract text from.
+        :param convert_pdf_to_image: :bool Optional Whether to convert the PDF to image first and
+            extract text with OCR rather than PDF parser. This will be slower but
+            more accurate with poorly formatted PDFs or scanned documents.
+            Default is False.
+        """
+        self.file_path = file_path
+        self.convert_pdf_to_image = convert_pdf_to_image
+        self.validate_file(file_path)
 
     def extract_via_pymupdf(self) -> str:
         import pymupdf
@@ -40,17 +34,12 @@ class PDFTextExtractor(BaseTextExtractor):
 
         return text
 
-    def extract_via_image_conversion(self, first_page_only=False) -> str:
-        """Extracts text from PDF files by converting them to images first and then using OCR.
-
-        :param first_page_only: If True, only extracts text from the first page.
-        """
+    def extract_via_image_conversion(self) -> str:
         from src.extractors.image_text_extractor import ImageTextExtractor
         from pdf2image import convert_from_path
 
-        pages = convert_from_path(self.file_path, 200)
-        if first_page_only:
-            pages = pages[:1]
+        # Convert PDF to images
+        pages = convert_from_path(self.file_path, dpi=200)
 
         # Extract text from images
         text = ""
@@ -63,14 +52,17 @@ class PDFTextExtractor(BaseTextExtractor):
         return text
 
     def extract(self) -> str:
-        """Extracts text data from the PDF file."""
-        if self.module == PDFModule.PDF2IMAGE:
-            self.raw_text = self.extract_via_image_conversion(first_page_only=True)
-        elif self.module == PDFModule.PYMUPDF:
-            self.raw_text = self.extract_via_pymupdf()
+        """Extracts text data from the PDF file.
+
+        :param file_path: :str Path to the PDF file to extract text from.
+        :returns: :str Extracted text data.
+        """
+        if self.convert_pdf_to_image:
+            logging.info(f"Extracting text from PDF via image conversion. File Path: {self.file_path}")
+            text = self.extract_via_image_conversion()
         else:
-            raise ValueError(f"Unsupported PDF extraction module: {self.module}")
+            logging.info(f"Extracting text from PDF via PDF Parser. File Path: {self.file_path}")
+            text = self.extract_via_pymupdf()
 
-        self.validate_extracted()
-
-        return self.raw_text
+        self.validate_extracted(text)
+        return text

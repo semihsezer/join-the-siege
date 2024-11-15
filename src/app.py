@@ -1,10 +1,11 @@
 from flask import Flask, request, jsonify
 
-from src.classifier import classify_file
+from src.classifier import classify_file, ClassifierType
+from src.extractors import SUPPORTED_FILE_TYPES
 
 app = Flask(__name__)
 
-ALLOWED_EXTENSIONS = {"pdf", "png", "jpg"}
+ALLOWED_EXTENSIONS = SUPPORTED_FILE_TYPES
 
 
 def allowed_file(filename):
@@ -13,7 +14,6 @@ def allowed_file(filename):
 
 @app.route("/classify_file", methods=["POST"])
 def classify_file_route():
-
     if "file" not in request.files:
         return jsonify({"error": "No file part in the request"}), 400
 
@@ -24,9 +24,18 @@ def classify_file_route():
     if not allowed_file(file.filename):
         return jsonify({"error": f"File type not allowed"}), 400
 
-    file_class = classify_file(file)
-    return jsonify({"file_class": file_class}), 200
+    classifier = request.args.get("classifier", ClassifierType.CONTENT)
+    convert_pdf_to_image = request.args.get("convert_pdf_to_image", False)
 
+    if classifier not in ClassifierType:
+        raise ValueError(f"Unsupported classifier: {classifier}. "
+                         f"Has to be one of: {ClassifierType}")
+
+    try:
+        classification = classify_file(file, classifier, convert_pdf_to_image)
+        return jsonify({"file_class": classification}), 200
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
 
 if __name__ == "__main__":
     app.run(debug=True)
