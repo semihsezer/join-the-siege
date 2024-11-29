@@ -16,6 +16,8 @@ services:
       - .env
     networks:
       - heron-net
+    volumes:
+      - ./src:/server/src
 
 networks:
   heron-net:

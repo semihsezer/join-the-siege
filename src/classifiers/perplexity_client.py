@@ -6,7 +6,12 @@ from functools import cached_property
 
 DEFAULT_PAYLOAD = {
     "model": "llama-3.1-sonar-small-128k-online",
-    "messages": [],
+    "messages": [
+        {
+            "role": "system",
+            "content": "You are an AI assistant that always responds in valid JSON format. You will receive some text and be asked to classify it into one of the given categories. Your responses should be structured as {'classification': '<classification_category>'}, where <classification_category> is one of the provided categories."
+        },
+    ],
     "max_tokens": 200,
 }
 
